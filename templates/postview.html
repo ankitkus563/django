@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dashboard - Home</title>
+    <title>{{ post.title }} - Post View</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -54,46 +54,43 @@
         }
 
         .content h1 {
-            font-size: 24px;
+            font-size: 28px;
             margin-bottom: 20px;
         }
 
-        .grid-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 20px;
-        }
-
-        .card {
+        .post-container {
             background-color: #fff;
             padding: 20px;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
+            margin-bottom: 20px;
         }
 
-        .card h3 {
-            margin: 0 0 10px 0;
-            font-size: 18px;
+        .post-container h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
         }
 
-        .card p {
-            flex-grow: 1;
+        .post-container p {
+            margin-bottom: 10px;
+            line-height: 1.6;
         }
 
-        .card button {
-            padding: 10px;
+        .post-actions {
+            margin-top: 20px;
+        }
+
+        .post-actions button {
+            padding: 10px 15px;
             background-color: #0073aa;
             color: #fff;
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            margin-top: 5px;
+            margin-right: 10px;
         }
 
-        .card button:hover {
+        .post-actions button:hover {
             background-color: #005f8a;
         }
     </style>
@@ -106,42 +103,35 @@
             <li><a href="/category">Categories</a></li>
             <li><a href="/posts">Posts</a></li>
             <li><a href="/users">Users</a></li>
-           <li><a href="/settings">Settings</a></li>
+            <li><a href="/settings">Settings</a></li>
         </ul>
     </div>
 
     <div class="content">
-        <h1>My Posts</h1>
-        <div class="grid-container">
-            {% if posts %}
-                {% for post in posts %}
-                    <div class="card">
-                        <h3>{{ post.title }}</h3>
-                        <p>{{ post.content|truncatewords:30 }}</p>
-                        <div>
-                            <button onclick="window.location.href='/posts/{{ post.id }}'">View</button>
-                            <button onclick="window.location.href='/posts/edit/{{ post.id }}'">Edit</button>
-                            <button onclick="deletePost({{ post.id }})">Delete</button>
-                        </div>
-                    </div>
-                {% endfor %}
-            {% else %}
-                <div>No posts available.</div>
-            {% endif %}
+        <div class="post-container">
+            <h2>{{ post.title }}</h2>
+            <p><strong>Published on:</strong> {{ post.created_at }}</p>
+            <p>{{ post.content }}</p>
+            <div class="post-actions">
+                <button onclick="window.location.href='/posts/edit/{{ post.id }}'">Edit</button>
+                <button onclick="deletePost({{ post.id }})">Delete</button>
+                <button onclick="window.location.href='/home'" style="background-color: #ccc; color: #000;">Back to Posts</button>
+            </div>
         </div>
     </div>
 
     <script>
         function deletePost(postId) {
+            let id = [postId]
+            console.log(id)
             if (confirm("Are you sure you want to delete this post?")) {
-                let id = [postId]
                 fetch(`/posts/delete/`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                         'X-CSRFToken': '{{ csrf_token }}'
                     },
-                    body:JSON.stringify({items:id})
+                    body: JSON.stringify({ items: id })
                 })
                 .then(response => {
                     if (response.ok) {

@@ -11,7 +11,8 @@ def chat_with_gpt(request):
 
 def home(request):
     # Open and read the JSON data from the file
-    with open("C:/Users/Hp/Downloads/MOCK_DATA.json", "r" , encoding="utf8") as data:
+    
+    with open("C:/Users/Hp/OneDrive/Documents/djangoproject/mysite/media/MOCK_DATA.json", "r" , encoding="utf8") as data:
         json_data = data.read()
 
     # Convert JSON data to a Python list

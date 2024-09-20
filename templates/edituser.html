@@ -222,10 +222,10 @@
         <h2>Create New User</h2>
         <form id="createUserForm" action="" method="post">
           {% csrf_token %}
-          <input name="name" type="text" placeholder="Full Name" required />
-          <input name="username" type="text" placeholder="Username" required />
-          <input name="email" type="email" placeholder="Email Address" required />
-          <button type="submit">Add User</button>
+          <input name="name" value="{{iuser.name}}" type="text" placeholder="Full Name" required />
+          <input name="username" value="{{iuser.username}}" type="text" placeholder="Username" required />
+          <input name="email" value="{{iuser.email}}" type="email" placeholder="Email Address" required />
+          <button type="submit">Update User</button>
           {{ flash_messages }}
         </form>
       </div>
@@ -254,6 +254,7 @@
           <tbody>
             {% if users %}
               {% for user in users %}
+              {% if not user.id == iuser.id %}
                 <tr>
                   <td><input value="{{ user.id }}" class="itemCheckbox" name="options" type="checkbox" /></td>
                   <td>{{ user.name }}</td>
@@ -265,6 +266,7 @@
                     <button class="action-button delete-button" onclick="deleteUser([{{ user.id }}])">Delete</button>
                   </td>
                 </tr>
+            {% endif %}
               {% endfor %}
             {% else %}
               <tr>

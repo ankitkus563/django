@@ -185,7 +185,7 @@
         <li><a href="/category">Categories</a></li>
         <li><a href="/posts">Posts</a></li>
         <li><a href="/users">Users</a></li>
-        <li><a href="#">Settings</a></li>
+       <li><a href="/settings">Settings</a></li>
       </ul>
     </div>
 
@@ -197,7 +197,7 @@
           {% csrf_token %}
           <input name="title" type="text" placeholder="Post Title" required />
           <textarea name="content" placeholder="Post Content" required></textarea>
-          <select name="category" required>
+          <select name="category" >
             <option value="">Select Category</option>
             {% for category in categories %}
               <option value="{{ category.id }}">{{ category.name }}</option>
@@ -279,45 +279,37 @@
 
         if (selectedAction ==="Delete" && selectedValues.length>0){
           if (confirm("Are you sure you want to delete this user?")) {
-          selectedValues.forEach((id)=>{
-            
-            const msg = deletepost(id)
-            
-          })
+         
+            deletepost(selectedValues)
         }
           
         }
         
       });
 
-      setTimeout(() => {
-        const flashMessages = document.querySelectorAll('.flash');
-        flashMessages.forEach(message => {
-          message.classList.add('hide');
-        });
-      }, 3000);
 
       function deletepost(postid) {
-        
-          fetch(`/posts/delete/${postid}`, {
-            method: 'DELETE',
-            headers: {
-              'X-CSRFToken': '{{ csrf_token }}'
-            }
-          })
-          .then(response => {
-            if (response.ok) {
-              window.location.reload();
-              return("post deleted sucessfully");
-            } else {
-              return("Error deleting post.");
-            }
-          })
-          .catch(error => {
-            console.error('Error:', error);
-          });
-        
+        fetch(`/posts/delete/`, { // Use the correct URL format
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': '{{ csrf_token }}' // Ensure this is correctly rendered
+          },
+          body: JSON.stringify({ items: postid })
+        })
+        .then(response => {
+          if (response.ok) {
+            window.location.reload();
+            return "Post deleted successfully"; // Consider logging this for debugging
+          } else {
+            return Promise.reject("Error deleting post."); // Use Promise.reject to handle errors
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
       }
+      
     </script>
 </body>
 </html>

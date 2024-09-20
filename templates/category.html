@@ -1,221 +1,238 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dashboard - Categories</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f1f1f1;
-            margin: 0;
-            display: flex;
-        }
-
-        .sidebar {
-            background-color: #23282d;
-            width: 250px;
-            height: 100vh;
-            color: #fff;
-            padding: 20px;
-            position: fixed;
-        }
-
-        .sidebar h2 {
-            font-size: 18px;
-            margin: 20px 0;
-        }
-
-        .sidebar ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        .sidebar ul li {
-            margin: 15px 0;
-        }
-
-        .sidebar ul li a {
-            color: #c3c4c7;
-            text-decoration: none;
-            font-size: 16px;
-            display: block;
-            padding: 10px 0;
-        }
-
-        .sidebar ul li a:hover {
-            color: #00a0d2;
-        }
-
-        .content {
-            margin-left: 279px;
-            padding: 20px;
-            width: calc(100% - 250px);
-        }
-
-        .content h1 {
-            font-size: 24px;
-            margin-bottom: 20px;
-        }
-
-        .form-container, .table-container {
-            background-color: #fff;
-            padding: 20px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-            margin-bottom: 20px;
-        }
-
-        .form-container h2 {
-            font-size: 20px;
-            margin-bottom: 20px;
-        }
-
-        .form-container input[type='text'],
-        .form-container textarea {
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 14px;
-            transition: border-color 0.3s ease;
-        }
-
-        .form-container input[type='text']:focus,
-        .form-container textarea:focus {
-            border-color: #0073aa;
-            outline: none;
-        }
-
-        .form-container button {
-            padding: 12px 20px;
-            background-color: #0073aa;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .form-container button:hover {
-            background-color: #005f8c;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-        }
-
-        table th, table td {
-            padding: 15px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-
-        table th {
-            background-color: #f9f9f9;
-            font-weight: bold;
-        }
-
-        .bulk-actions {
-            margin-bottom: 20px;
-        }
-
-        .bulk-actions select,
-        .bulk-actions button {
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 14px;
-        }
-
-        .bulk-actions button {
-            background-color: #0073aa;
-            color: #fff;
-            border: none;
-            margin-left: 10px;
-        }
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f1f1f1;
+        margin: 0;
+        display: flex;
+      }
+      
+      .sidebar {
+        background-color: #23282d;
+        width: 250px;
+        height: 100vh;
+        color: #fff;
+        padding: 20px;
+        position: fixed;
+      }
+      
+      .sidebar h2 {
+        font-size: 18px;
+        margin: 20px 0;
+      }
+      
+      .sidebar ul {
+        list-style: none;
+        padding: 0;
+      }
+      
+      .sidebar ul li {
+        margin: 15px 0;
+      }
+      
+      .sidebar ul li a {
+        color: #c3c4c7;
+        text-decoration: none;
+        font-size: 16px;
+        display: block;
+        padding: 10px 0;
+      }
+      
+      .sidebar ul li a:hover {
+        color: #00a0d2;
+      }
+      
+      .content {
+        margin-left: 279px;
+        padding: 20px;
+        width: calc(100% - 250px);
+      }
+      
+      .content h1 {
+        font-size: 24px;
+        margin-bottom: 20px;
+      }
+      
+      .form-container,
+      .table-container {
+        background-color: #fff;
+        padding: 20px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        margin-bottom: 20px;
+      }
+      
+      .form-container h2 {
+        font-size: 20px;
+        margin-bottom: 20px;
+      }
+      
+      .form-container input[type='text'],
+      .form-container textarea {
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 14px;
+        transition: border-color 0.3s ease;
+      }
+      
+      .form-container input[type='text']:focus,
+      .form-container textarea:focus {
+        border-color: #0073aa;
+        outline: none;
+      }
+      
+      .form-container button {
+        padding: 12px 20px;
+        background-color: #0073aa;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+      
+      .form-container button:hover {
+        background-color: #005f8c;
+      }
+      
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+      }
+      
+      table th,
+      table td {
+        padding: 15px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+      }
+      
+      table th {
+        background-color: #f9f9f9;
+        font-weight: bold;
+      }
+      
+      .bulk-actions {
+        margin-bottom: 20px;
+      }
+      
+      .bulk-actions select,
+      .bulk-actions button {
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 14px;
+      }
+      
+      .bulk-actions button {
+        background-color: #0073aa;
+        color: #fff;
+        border: none;
+        margin-left: 10px;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div class="sidebar">
-        <h2>Dashboard</h2>
-        <ul>
-            <li><a href="/home">Home</a></li>
-             <li><a href="/category">Categories</a></li>
-            <li><a href="/posts">Posts</a></li>
-            <li><a href="/users">Users</a></li>
-            <li><a href="#">Settings</a></li>
-        </ul>
+      <h2>Dashboard</h2>
+      <ul>
+        <li>
+          <a href="/home">Home</a>
+        </li>
+        <li>
+          <a href="/category">Categories</a>
+        </li>
+        <li>
+          <a href="/posts">Posts</a>
+        </li>
+        <li>
+          <a href="/users">Users</a>
+        </li>
+        <li>
+            <a href="/settings">Settings</a>
+          </li>
+      </ul>
     </div>
 
     <div class="content">
-        <h1>Categories</h1>
-        <div class="form-container">
-            <h2>Add New Category</h2>
-            <form action="" method="post">
-                {% csrf_token %}
-                <input name="catname" type="text" placeholder="Category Name" required />
-                <textarea name="description" placeholder="Category Description" rows="4"></textarea>
-                <button type="submit">Add New Category</button>
-                {{ c }}
-            </form>
-        </div>
+      <h1>Categories</h1>
+      <div class="form-container">
+        <h2>Add New Category</h2>
+        <form action="" method="post">
+          {% csrf_token %}
+          <input name="catname" type="text" placeholder="Category Name" required />
+          <textarea name="description" placeholder="Category Description" rows="4"></textarea>
+          <button type="submit">Add New Category</button>
+          {{ c }}
+        </form>
+      </div>
 
-        <div class="bulk-actions">
-            <select id="bulkActionSelect">
-                <option>Bulk actions</option>
-                <option>Edit</option>
-                <option>Delete</option>
-            </select>
-            <button id="apply-btn">Apply</button>
-        </div>
+      <div class="bulk-actions">
+        <select id="bulkActionSelect">
+          <option>Bulk actions</option>
+          <option>Edit</option>
+          <option>Delete</option>
+        </select>
+        <button id="apply-btn">Apply</button>
+      </div>
 
-        <div class="table-container">
-            <table>
-                <thead>
-                    <tr>
-                        <th><input id="selectAll" type="checkbox" /></th>
-                        <th>Name</th>
-                        <th>Description</th>
-                        <th>Slug</th>
-                        <th>Created At</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% if categories %}
-                    {% for category in categories %}
-                    <tr>
-                        <td><input value="{{ category.id }}" class="itemCheckbox" name="options" type="checkbox" /></td>
-                        <td>{{ category.name }}</td>
-                        <td>{{ category.description }}</td>
-                        <td>{{ category.slug }}</td>
-                        <td>{{ category.created_at }}</td>
-                    </tr>
-                    {% endfor %}
-                    {% else %}
-                    <tr>
-                        <td colspan="5">No data available.</td>
-                    </tr>
-                    {% endif %}
-                </tbody>
-            </table>
-        </div>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>
+                <input id="selectAll" type="checkbox" />
+              </th>
+              <th>Name</th>
+              <th>Description</th>
+              <th>Slug</th>
+              <th>Created At</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% if categories %}
+              {% for category in categories %}
+                <tr>
+                  <td>
+                    <input value="{{ category.id }}" class="itemCheckbox" name="options" type="checkbox" />
+                  </td>
+                  <td>{{ category.name }}</td>
+                  <td>{{ category.description }}</td>
+                  <td>{{ category.slug }}</td>
+                  <td>{{ category.created_at }}</td>
+                </tr>
+              {% endfor %}
+            {% else %}
+              <tr>
+                <td colspan="5">No data available.</td>
+              </tr>
+            {% endif %}
+          </tbody>
+        </table>
+      </div>
     </div>
 
     <script>
+
         document.addEventListener('DOMContentLoaded', () => {
             const selectAllCheckbox = document.getElementById('selectAll');
             const itemCheckboxes = document.querySelectorAll('.itemCheckbox');
-
+        
             selectAllCheckbox.addEventListener('change', function () {
                 itemCheckboxes.forEach(checkbox => {
                     checkbox.checked = this.checked;
                 });
             });
-
+        
             itemCheckboxes.forEach(checkbox => {
                 checkbox.addEventListener('change', function () {
                     if (!this.checked) {
@@ -225,32 +242,43 @@
                     }
                 });
             });
-
+        
             document.getElementById('apply-btn').addEventListener('click', () => {
                 const selectElement = document.getElementById('bulkActionSelect');
                 const selectedAction = selectElement.value;
-
+        
                 const checkboxes = document.querySelectorAll('input[name="options"]:checked');
                 const selectedValues = Array.from(checkboxes).map(checkbox => checkbox.value);
-                const data = { selectedValues, selectedAction };
-
-                fetch('your-url-here', { // Update this URL
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRFToken': '{{ csrf_token }}'
-                    },
-                    body: JSON.stringify(data)
-                })
-                .then(response => response.json())
-                .then(result => {
-                    window.location.href = '/categories'; // Redirect after successful operation
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
+                
+                if (selectedAction === "Delete" && selectedValues.length > 0) { // Corrected line
+                    if (confirm("Are you sure you want to delete these categories?")) {
+                        selectedValues.forEach((id) => {
+                            deletecategory(id);
+                        });
+                    }
+                }
             });
         });
+        
+      function deletecategory(category_id) {
+        fetch(`/category/delete/${category_id}`, {
+          method: 'DELETE',
+          headers: {
+            'X-CSRFToken': '{{ csrf_token }}'
+          }
+        })
+          .then((response) => {
+            if (response.ok) {
+              window.location.reload()
+              return 'category deleted sucessfully'
+            } else {
+              return 'Error deleting category.'
+            }
+          })
+          .catch((error) => {
+            console.error('Error:', error)
+          })
+      }
     </script>
-</body>
+  </body>
 </html>

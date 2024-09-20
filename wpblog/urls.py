@@ -17,13 +17,20 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from wpblog import views
-from .views import deleteuser, deletepost
+from .views import deleteuser, deletepost, deletecategory,importsettings
 
 urlpatterns = [
 path('category/', views.category),
 path('posts/',views.post),
 path('home/',views.home),
 path('users/',views.users),
-path('users/delete/<int:user_id>/',deleteuser,name='deleteuser'),
-path('posts/delete/<int:post_id>/',deletepost,name='deletepost'),
+path('users/delete/',deleteuser,name='deleteuser'),
+path('posts/delete/',deletepost,name='deletepost'),
+path('category/delete/<int:category_id>/',deletecategory,name='deletecategory'),
+path('settings/',views.settingspage),
+path('import/', importsettings, name='importsettings'),
+path('posts/<int:post_id>/',views.postview),
+path('posts/edit/<int:post_id>/',views.editpost),
+path('posts/save/<int:post_id>/',views.savepost),
+path('users/edit/<int:user_id>/',views.edituser)
 ]
