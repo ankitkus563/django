@@ -175,6 +175,25 @@
         transform: scale(1.5);
         cursor: pointer;
       }
+
+      .edit-button {
+        background-color: #0073aa;
+        color: #fff;
+      }
+
+      .delete-button {
+        background-color: #dc3545;
+        color: #fff;
+        margin-left: 5px;
+    }
+
+    .action-button {
+      padding: 5px 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+  }
     </style>
 </head>
 <body>
@@ -225,7 +244,8 @@
               <th>Title</th>
               <th>Content</th>
               <th>Category</th>
-              <th>Created At</th>
+              <th>Date</th>
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -234,9 +254,13 @@
                 <tr>
                   <td><input value="{{ post.id }}" class="itemCheckbox" name="options" type="checkbox" /></td>
                   <td>{{ post.title }}</td>
-                  <td>{{ post.content }}</td>
+                  <td>{{ post.content | truncatewords:5 }}</td>
                   <td>{{ post.category.name }}</td>
-                  <td>{{ post.created_at }}</td>
+                  <td>{{ post.created_at|date:"Y-m-d" }}</td>
+                  <td>
+                    <button class="action-button edit-button" onclick="window.location.href='/posts/edit/{{ post.id }}'">Edit</button>
+                    <button class="action-button delete-button" onclick="deletepost([{{ post.id }}])">Delete</button>
+                  </td>
                 </tr>
               {% endfor %}
             {% else %}
@@ -278,10 +302,10 @@
 
 
         if (selectedAction ==="Delete" && selectedValues.length>0){
-          if (confirm("Are you sure you want to delete this user?")) {
+         
          
             deletepost(selectedValues)
-        }
+       
           
         }
         
@@ -289,6 +313,7 @@
 
 
       function deletepost(postid) {
+        if (confirm("Are you sure you want to delete this user?")) {
         fetch(`/posts/delete/`, { // Use the correct URL format
           method: 'POST',
           headers: {
@@ -309,6 +334,7 @@
           console.error('Error:', error);
         });
       }
+    }
       
     </script>
 </body>

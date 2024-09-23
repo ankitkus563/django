@@ -80,10 +80,12 @@ def deletepost(request):
         return JsonResponse({'error': 'Invalid request method'}, status=400)
         
 
-def deletecategory(request,category_id):
-    if request.method == "DELETE":
-        category = get_object_or_404(Category, id=category_id)
-        category.delete()
+def deletecategory(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        items = data.get('items', [])
+        categories_to_delete = Category.objects.filter(id__in=items)
+        categories_to_delete.delete()
         return JsonResponse({'message': 'Category deleted successfully'}, status=204)
     else:
         return JsonResponse({'error': 'Invalid request method'}, status=400)
@@ -131,6 +133,30 @@ def importsettings(request):
                         post = data["post"]
                         newpost = Post(title=title, content=post)
                         newpost.save()
+                    else:
+                        json_data = json.load(json_file)
+                        existing_slugs = set()
+                        for data in json_data:
+                            catname = data["name"]
+                            description = data["description"]
+                            
+                            # Create the initial slug
+                            base_slug = catname.lower().replace(' ', '-')
+                            slug = base_slug
+                            count = 1
+
+                            # Check for uniqueness and modify the slug if necessary
+                            while slug in existing_slugs:
+                                slug = f"{base_slug}-{count}"
+                                count += 1
+                            
+                            # Save the category and add the slug to the set of existing slugs
+                            newcat = Category(name=catname, description=description)
+                            newcat.slug = slug
+                            newcat.save()
+                            existing_slugs.add(slug)
+
+
 
                        # This will raise an error if the JSON is invalid
                                      
@@ -177,3 +203,15 @@ def edituser(request,user_id):
         user.save()
         return redirect('/users')
     return render(request,"edituser.html",{"users": users, "iuser": user})
+
+def editcategory(request,category_id):
+    category = Category.objects.all()
+    ncategory = Category.objects.get(id=category_id)
+    if request.method == "POST":
+        ncategory = Category.objects.get(id=category_id)
+        ncategory.name = request.POST.get('catname')
+        ncategory.description = request.POST.get('description')    
+        ncategory.save()
+        return redirect('/category')
+    else:
+        return render(request,"editcategory.html",{"categories":category,"ncategory":ncategory})

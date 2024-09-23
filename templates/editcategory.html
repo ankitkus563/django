@@ -197,9 +197,9 @@
         <h2>Add New Category</h2>
         <form action="" method="post">
           {% csrf_token %}
-          <input name="catname" type="text" placeholder="Category Name" required />
-          <textarea name="description" placeholder="Category Description" rows="4"></textarea>
-          <button type="submit">Add New Category</button>
+          <input name="catname" value="{{ ncategory.name }}" type="text" placeholder="Category Name" required />
+          <textarea name="description" placeholder="Category Description" rows="4">{{ ncategory.description }}</textarea>
+          <button type="submit">Update Category</button>
           {{ c }}
         </form>
       </div>
@@ -229,6 +229,7 @@
           <tbody>
             {% if categories %}
               {% for category in categories %}
+              {% if not category.id == ncategory.id %}
                 <tr>
                   <td>
                     <input value="{{ category.id }}" class="itemCheckbox" name="options" type="checkbox" />
@@ -241,6 +242,7 @@
                     <button class="action-button delete-button" onclick="deletecategory([{{ category.id }}])">Delete</button>
                 </td>
                 </tr>
+                {% endif %}
               {% endfor %}
             {% else %}
               <tr>

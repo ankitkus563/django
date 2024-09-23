@@ -118,6 +118,7 @@
                     <div class="card">
                         <h3>{{ post.title }}</h3>
                         <p>{{ post.content|truncatewords:30 }}</p>
+                        <p>Category: {{ post.category|default:"default" }}</p>
                         <div>
                             <button onclick="window.location.href='/posts/{{ post.id }}'">View</button>
                             <button onclick="window.location.href='/posts/edit/{{ post.id }}'">Edit</button>
