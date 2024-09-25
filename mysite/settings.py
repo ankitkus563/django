@@ -21,9 +21,9 @@ MEDIA_ROOT = BASE_DIR / 'media'
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True  # Set to True only during development
+DEBUG = False  # Set to True only during development
 
-ALLOWED_HOSTS = ['vercel.app', 'localhost', '127.0.0.1','podcastgyaan.com']
+ALLOWED_HOSTS = ['mysite-hazel-gamma.vercel.app', 'localhost', '127.0.0.1','podcastgyaan.com']
 
 
 # Application definition
@@ -81,13 +81,6 @@ DATABASES = {
         'PORT': os.getenv('DB_PORT', '3306'),  # Default MySQL port
     }
 }
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / "db.sqlite3",  # This creates the database in your project directory
-#     }
-# }
 
 
 # Password validation
