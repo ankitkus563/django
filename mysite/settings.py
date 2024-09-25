@@ -1,6 +1,9 @@
 import os
 from pathlib import Path
 from dotenv import load_dotenv
+import pymysql
+pymysql.install_as_MySQLdb()
+
 
 # Load environment variables from .env file
 load_dotenv()
@@ -18,9 +21,9 @@ MEDIA_ROOT = BASE_DIR / 'media'
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False  # Set to True only during development
+DEBUG = True  # Set to True only during development
 
-ALLOWED_HOSTS = ['vercel.app', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['vercel.app', 'localhost', '127.0.0.1','podcastgyaan.com']
 
 
 # Application definition
@@ -65,24 +68,26 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'mysite.wsgi.application'
 
-# # Database
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',  # MySQL backend
-#         'NAME': os.getenv('DB_NAME'),  # Set this in your .env
-#         'USER': os.getenv('DB_USER'),  # Set this in your .env
-#         'PASSWORD': os.getenv('DB_PASSWORD'),  # Set this in your .env
-#         'HOST': os.getenv('DB_HOST', 'srv1493.hstgr.io'),  # MySQL server hostname
-#         'PORT': os.getenv('DB_PORT', '3306'),  # Default MySQL port
-#     }
-# }
+
+
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / "db.sqlite3",  # This creates the database in your project directory
+        'ENGINE': 'django.db.backends.mysql',  # MySQL backend
+        'NAME': os.getenv('DB_NAME'),  # Set this in your .env
+        'USER': os.getenv('DB_USER'),  # Set this in your .env
+        'PASSWORD': os.getenv('DB_PASSWORD'),  # Set this in your .env
+        'HOST': os.getenv('DB_HOST', 'srv1493.hstgr.io'),  # MySQL server hostname
+        'PORT': os.getenv('DB_PORT', '3306'),  # Default MySQL port
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / "db.sqlite3",  # This creates the database in your project directory
+#     }
+# }
 
 
 # Password validation
