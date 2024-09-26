@@ -1,6 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 import json
 from django.http import JsonResponse
+
+
 
 
 def chat_with_gpt(request):
@@ -10,20 +12,9 @@ def chat_with_gpt(request):
 
 
 def home(request):
-    # Open and read the JSON data from the file
-    
-    with open("C:/Users/Hp/OneDrive/Documents/djangoproject/mysite/media/MOCK_DATA.json", "r" , encoding="utf8") as data:
-        json_data = data.read()
+    # Open and read the JSON data from the
 
-    # Convert JSON data to a Python list
-    try:
-        userdata_list = json.loads(json_data)  # Expecting a list
-    except json.JSONDecodeError as e:
-        # If JSON decoding fails, return an error response or handle it appropriately
-        return render(request, 'error.html', {'error_message': "Error decoding JSON"})
-
-    # Pass the list to the template within a context dictionary
-    return render(request, 'index.html', {'userdata_list': userdata_list})
+    return redirect("/home")
 
 
 
