@@ -23,7 +23,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False  # Set to True only during development
 
-ALLOWED_HOSTS = ['mysite-hazel-gamma.vercel.app', 'localhost', '127.0.0.1','podcastgyaan.com']
+ALLOWED_HOSTS = ['django-i4ah.onrender.com','mysite-hazel-gamma.vercel.app', 'localhost', '127.0.0.1','podcastgyaan.com']
 
 
 # Application definition
